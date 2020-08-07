@@ -63,7 +63,7 @@ const StudCSV = (ExcelJson) => {
 const GetTemplate = () => {
   var wb = XLSX.utils.book_new()
   wb.SheetNames.push('Template-V')
-  var wsData = [['Referance', 'Customer_Name', 'Phone_Number', 'Prodoct', 'Price', 'City', 'Address']]
+  var wsData = [['Referance', 'Customer_Name', 'Phone_Number', 'Prudoct', 'Price', 'City', 'Address']]
   var ws = XLSX.utils.aoa_to_sheet(wsData)
   wb.Sheets['Template-V'] = ws
   var wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' })

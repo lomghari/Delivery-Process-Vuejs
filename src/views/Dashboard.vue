@@ -13,7 +13,23 @@
                 <v-icon x-large color="blue lighten-5">mdi-dots-vertical</v-icon>
             </v-btn>
         </template>
-        <v-list class="pa-0">
+        <v-list class="pa-0" :dense="true">
+            <v-list-item  @click="DoNathing">
+               <v-list-item-icon>
+                    <v-icon>person</v-icon>
+                </v-list-item-icon>
+                <v-list-item-content class="pa-0">
+                    <v-list-item-title>{{User.Username}}</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-item  @click="DoNathing">
+                 <v-list-item-icon>
+                    <v-icon>home_work</v-icon>
+                </v-list-item-icon>
+                <v-list-item-content class="pa-0">
+                    <v-list-item-title>{{GetNameh(GetHubName)}}</v-list-item-title>
+                </v-list-item-content>
+            </v-list-item>
             <v-list-item v-for="(item,i) in dropList" :key="i" router :to="item.nav_route" v-show="item.showCondition" @click="item.method">
                 <v-list-item-icon>
                     <v-icon v-text="item.icon"></v-icon>
@@ -97,8 +113,6 @@ export default {
         }
       ],
       dropList: [
-        { title: 'Yassine Kossaby', icon: 'person', nav_route: '', method: this.DoNathing, showCondition: true },
-        { title: 'Casablanca-Hub', icon: 'home_work', nav_route: '', method: this.DoNathing, showCondition: true },
         { title: 'SwitchHub', icon: 'sync', nav_route: '/dashboard/switch', method: this.DoNathing, showCondition: true },
         { title: 'Administrator', icon: 'memory', nav_route: '', method: this.ShowAdmistratorToTrue, showCondition: !this.IfCostumer },
         { title: 'Operation', icon: 'business_center', nav_route: '', method: this.ShowAdmistratorToFalse, showCondition: !this.IfCostumer },
@@ -113,10 +127,14 @@ export default {
       return this.$store.state.Auth.User
     },
     IfCostumer () {
-      return this.User.Role === 'Customer'
+      return this.$store.state.Auth.User.Role === 'Customer'
     },
     ShowAdmistrator () {
       return this.showAdmistrator
+    },
+    GetHubName () {
+      // return this.$store.state.HubStore.Hubs.find(c => c.id === this.$store.state.Auth.User.Current_Provider).Provider_Name
+      return this.$store.state.Auth.User.Current_Provider
     }
   },
   methods: {
@@ -134,10 +152,14 @@ export default {
     },
     ShowAdmistratorToFalse () {
       this.showAdmistrator = false
+    },
+    GetNameh (value) {
+      return this.$store.state.HubStore.Hubs.find(c => c.id === value).Provider_Name
     }
   },
-  created () {
+  beforeCreate () {
     this.$store.dispatch('setUser')
+    this.$store.dispatch('getHubs')
   }
 }
 </script>

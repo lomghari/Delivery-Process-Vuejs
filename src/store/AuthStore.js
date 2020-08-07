@@ -9,7 +9,8 @@ const state = {
   email: '',
   password: '',
   role: '',
-  fullname: ''
+  fullname: '',
+  selectHub: []
 }
 
 const getters = {
@@ -27,6 +28,9 @@ const getters = {
   },
   getFullname (state) {
     return state.fullname
+  },
+  getSelected (state) {
+    return state.selectHub
   }
 }
 
@@ -48,6 +52,9 @@ const mutations = {
   },
   setUser (state, payload) {
     state.User = payload.user
+  },
+  setSelected (state, payload) {
+    state.selectHub = payload
   },
   FetchUser (state, payload) {
     state.User = payload.user
@@ -78,6 +85,9 @@ const actions = {
   },
   setFullname ({ commit }, payload) {
     commit('setFullname', payload)
+  },
+  setSelected ({ commit }, payload) {
+    commit('setSelected', payload)
   },
   singUp ({ state }) {
     state.Loaderbtn = true
@@ -123,7 +133,7 @@ const actions = {
   setUser ({ commit }) {
     Axios({
       method: 'GET',
-      url: '/users',
+      url: '/users/user',
       headers: {
         authorization: 'Bearer ' + document.cookie.split('; ').find(c => c.startsWith('token')).split('=')[1]
       }
@@ -131,6 +141,28 @@ const actions = {
       commit('setUser', { user: result.data.user })
     }).catch(err => {
       console.log(err.response)
+    })
+  },
+  addUser ({ commit, state }) {
+    Axios({
+      method: 'POST',
+      url: '/users/createuser',
+      headers: {
+        authorization: 'Bearer ' + document.cookie.split('; ').find(c => c.startsWith('token')).split('=')[1]
+      },
+      data: {
+        username: state.username,
+        email: state.email,
+        password: state.password,
+        fullname: state.fullname,
+        role: 'customer',
+        HubIds: state.selectHub
+      }
+    }).then(data => {
+      state.Loaderbtn = false
+      console.log(data)
+    }).catch(err => {
+      console.log(err)
     })
   }
 }

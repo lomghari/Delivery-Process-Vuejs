@@ -2,6 +2,7 @@ import Axios from './Axios-Auth'
 import { saveAs } from 'file-saver'
 import * as Processe from '../Util/ReadExcel'
 import { ClearInputUpload } from '../Util/ClearState'
+import Store from './index'
 
 const state = {
   step1: false,
@@ -91,7 +92,7 @@ const actions = {
         authorization: 'Bearer ' + document.cookie.split('; ').find(c => c.startsWith('token')).split('=')[1]
       },
       data: {
-        Shipment_Provider_Id: 1,
+        Shipment_Provider_Id: Store.state.Auth.User.Current_Provider,
         Total_Package: state.PackageDataToSend.TotalPa,
         Package_Seccuss: state.PackageDataToSend.SccessArray,
         Package_Logs: state.PackageDataToSend.LogArray

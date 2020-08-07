@@ -20,7 +20,7 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    redirect: '/dashboard/home'
+    redirect: '/dashboard'
   },
   {
     path: '/dashboard',
