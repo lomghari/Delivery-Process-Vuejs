@@ -60,6 +60,9 @@
             </v-list-item-content>
           </template>
           <v-list-item v-for="(subItem, j) in item.items" :key="j" router :to="subItem.nav_route">
+            <v-list-item-icon>
+              <v-icon v-text="subItem.icon"></v-icon>
+            </v-list-item-icon>
             <v-list-item-content>
               <v-list-item-title v-text="subItem.title"></v-list-item-title>
             </v-list-item-content>
@@ -98,6 +101,7 @@ export default {
           icon: 'person',
           nav_route: '/dashboard/delivery',
           items: [
+            { title: 'Users', icon: 'people_alt', nav_route: '/dashboard/users' },
             { title: 'Add User', icon: 'person_add', nav_route: '/dashboard/adduser' },
             { title: 'Add Admin User', icon: 'add', nav_route: '/dashboard/adduseradmin' }
           ]

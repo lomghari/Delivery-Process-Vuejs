@@ -11,6 +11,7 @@ import Overview from '../components/Overview'
 import Delivery from '../components/Delivery'
 import Athub from '../components/AtHub.vue'
 import Adduser from '../components/AddUser.vue'
+import Users from '../components/UsersGestion.vue'
 import UserAdmin from '../components/AddUserAdmin.vue'
 import Addhub from '../components/AddHub.vue'
 import SwitchHub from '../components/SwitchHub.vue'
@@ -92,6 +93,11 @@ const routes = [
         path: 'switch',
         name: 'switchhub',
         component: SwitchHub
+      },
+      {
+        path: 'users',
+        name: 'Users',
+        component: Users
       }
     ]
   },
